@@ -1,0 +1,36 @@
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+
+const Index = () => {
+  const [camps, setCamps] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchCampgrounds = async () => {
+      const campgrounds = await axios.get("http://localhost:5000/campgrounds");
+      setCamps(campgrounds.data);
+      setLoading(false);
+    };
+    fetchCampgrounds();
+  }, []);
+
+  return (
+    <div>
+      {!loading && (
+        <div>
+          <h1>All Campgrounds</h1>
+
+          {camps.map((camp, Index) => (
+            <p>
+              {Index}- {camp.title}
+            </p>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Index;

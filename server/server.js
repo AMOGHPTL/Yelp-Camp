@@ -9,5 +9,13 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/campgrounds" , async (req,res) => {
+    const campgrounds = await Campground.find();
+    res.send(campgrounds);
+})
+
 
 app.listen(5000,()=>{console.log("serving on port 5000")});

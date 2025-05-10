@@ -1,7 +1,12 @@
+import { Routes, Route } from "react-router-dom";
+import Index from "./pages";
+
 const App = () => {
   return (
     <div>
-      <h1>This is Homepage</h1>
+      <Routes>
+        <Route path="/campgrounds" element={<Index />} />
+      </Routes>
     </div>
   );
 };
