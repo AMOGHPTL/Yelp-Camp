@@ -22,10 +22,12 @@ const Index = () => {
         <div>
           <h1>All Campgrounds</h1>
 
+          <a href="/campgrounds/new">Add Campground</a>
+
           {camps.map((camp, Index) => (
             <p>
               <a href={`/campgrounds/${camp._id}`}>
-                {Index}- {camp.title}
+                {Index + 1}- {camp.title}
               </a>
             </p>
           ))}

@@ -23,5 +23,11 @@ app.get("/campgrounds/:id" , async (req,res) => {
     res.send(campground);
 } )
 
+app.post("/campgrounds/new" , async (req , res) => {
+    const newCampground = new Campground(req.body);
+    newCampground.save()
+    res.send(newCampground);
+})
+
 
 app.listen(5000,()=>{console.log("serving on port 5000")});
