@@ -23,6 +23,13 @@ app.get("/campgrounds/:id" , async (req,res) => {
     res.send(campground);
 } )
 
+app.put("/campgrounds/:id/edit" , async (req , res) => {
+   const {id} = req.params;
+   const campground = req.body;
+   const updatedCamp = await Campground.findByIdAndUpdate(id,req.body,{new:true,runValidators:true});
+   res.send(updatedCamp);
+})
+
 app.post("/campgrounds/new" , async (req , res) => {
     const newCampground = new Campground(req.body);
     newCampground.save()

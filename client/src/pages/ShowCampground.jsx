@@ -27,6 +27,8 @@ const ShowCampground = () => {
           <h3>location : {camp.location}</h3>
         </div>
       )}
+      <a href={`/campgrounds/${camp._id}/edit`}>Update</a>
+      <br />
       <a href="/campgrounds">Show all</a>
     </div>
   );
