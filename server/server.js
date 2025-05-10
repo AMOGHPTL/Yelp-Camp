@@ -17,5 +17,11 @@ app.get("/campgrounds" , async (req,res) => {
     res.send(campgrounds);
 })
 
+app.get("/campgrounds/:id" , async (req,res) => {
+    const {id} = req.params;
+    const campground = await Campground.findById(id);
+    res.send(campground);
+} )
+
 
 app.listen(5000,()=>{console.log("serving on port 5000")});

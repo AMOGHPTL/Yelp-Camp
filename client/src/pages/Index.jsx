@@ -24,7 +24,9 @@ const Index = () => {
 
           {camps.map((camp, Index) => (
             <p>
-              {Index}- {camp.title}
+              <a href={`/campgrounds/${camp._id}`}>
+                {Index}- {camp.title}
+              </a>
             </p>
           ))}
         </div>
