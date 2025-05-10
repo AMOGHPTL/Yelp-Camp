@@ -9,10 +9,5 @@ const app = express();
 
 app.use(cors());
 
-app.get("/makecampground" , async (req,res) => {
-    const camp = new Campground({title:'my backyard',description:"cheap camping"});
-    await camp.save();
-    res.send(camp);
-})
 
 app.listen(5000,()=>{console.log("serving on port 5000")});
