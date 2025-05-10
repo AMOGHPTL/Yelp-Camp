@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ShowCampground = () => {
   const [camp, setCamp] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -19,6 +20,14 @@ const ShowCampground = () => {
     };
     fetchCampground();
   }, []);
+
+  const handleDelete = async () => {
+    const deletedCampground = await axios.delete(
+      `http://localhost:5000/campgrounds/${id}/delete`
+    );
+    navigate("/campgrounds");
+  };
+
   return (
     <div>
       {!loading && (
@@ -30,6 +39,8 @@ const ShowCampground = () => {
       <a href={`/campgrounds/${camp._id}/edit`}>Update</a>
       <br />
       <a href="/campgrounds">Show all</a>
+      <br />
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 };

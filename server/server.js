@@ -30,6 +30,12 @@ app.put("/campgrounds/:id/edit" , async (req , res) => {
    res.send(updatedCamp);
 })
 
+app.delete("/campgrounds/:id/delete" , async (req,res)=>{
+    const {id} = req.params;
+    const deletedCampgrond = await Campground.findByIdAndDelete(id);
+    res.send("deleted");
+})
+
 app.post("/campgrounds/new" , async (req , res) => {
     const newCampground = new Campground(req.body);
     newCampground.save()
