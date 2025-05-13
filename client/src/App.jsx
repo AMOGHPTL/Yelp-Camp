@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/campgrounds/:id" element={<ShowCampground />} />
         <Route path="/campgrounds/new" element={<NewCampground />} />
         <Route path="/campgrounds/:id/edit" element={<UpdateCampground />} />
+        <Route path="/" element={<Index />} />
       </Routes>
     </div>
   );
