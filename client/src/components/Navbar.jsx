@@ -19,8 +19,8 @@ const Navbar = () => {
 
   return (
     <nav className="bg-black text-white shadow-lg w-full">
-      <div className="px-4">
-        <div className="flex gap-24 items-center h-16">
+      <div className="px-6">
+        <div className="flex gap-10 items-center h-16">
           {/* Logo */}
           <div
             className="flex-shrink-0 font-bold text-xl cursor-pointer"
@@ -34,7 +34,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-4">
             {navItems.map((item, index) => (
-              <a key={index} href={item.link} className="px-3 py-2">
+              <a key={index} href={item.link} className="px-3 py-2 text-gray-400 hover:text-white">
                 {item.label}
               </a>
             ))}
