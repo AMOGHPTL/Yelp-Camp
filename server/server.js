@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import Campground from "./model/campgrounds.js";
 import ExpressError from "./utils/ExpressError.js";
+import Review from "./model/review.js";
 
 const app = express();
 
@@ -34,7 +35,7 @@ app.get("/campgrounds", async (req, res, next) => {
 app.get("/campgrounds/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const campground = await Campground.findById(id);
+    const campground = await Campground.findById(id).populate('reviews');
     if (!campground) throw new ExpressError("Campground not found", 404);
     res.status(200).send(campground);
   } catch (e) {
@@ -87,6 +88,38 @@ app.post("/campgrounds/new", async (req, res, next) => {
     next(e);
   }
 });
+
+app.post("/campgrounds/:id/reviews", async(req,res,next) => {
+  try{
+  const {id} = req.params;
+  const {review,rating} = req.body;
+  if(!id || !review || !rating){
+    throw new ExpressError("missing required feilds",400);
+  }
+  const campground = await Campground.findById(id);
+  const newReview = new Review({review,rating});
+  campground.reviews.push(newReview);
+  await newReview.save();
+  await campground.save();
+  res.status(200).send({message:"review added"}) 
+  } catch(e){
+    next(e)
+  }
+})
+
+app.delete('/campgrounds/:id/reviews/:reviewID', async(req,res,next) => {
+  try{
+    const {id,reviewID} = req.params;
+  const updatedCamp = await Campground.findByIdAndUpdate(id,{$pull: {reviews: reviewID}})
+  const deletedReview = await Review.findByIdAndDelete(reviewID);
+  if(!updatedCamp|| !deletedReview){
+    throw new ExpressError("Campground not found", 404);
+  }
+  res.status(200).send({message:"the review was deleted"})
+  } catch(e){
+    next(e)
+  }
+})
 
 // Error handling middleware
 app.use((err, req, res, next) => {

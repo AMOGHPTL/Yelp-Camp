@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Review from "./review.js";
 
 const Schema  = mongoose.Schema;
 
@@ -9,11 +10,11 @@ const CampgroundSchema = new Schema(
       required: true,
       trim: true
     },
-    price: {
-      type: Number,
-      required: true,
-      min: 0
-    },
+    // price: {
+    //   type: Number,
+    //   required: true,
+    //   min: 0
+    // },
     description: {
       type: String,
       required: true
@@ -32,6 +33,13 @@ const CampgroundSchema = new Schema(
     }]
   }
 ) 
+
+CampgroundSchema.post('findOneAndDelete', async (campground) => {
+  if(campground.reviews.length){
+    const res = await Review.deleteMany({_id : {$in : campground.reviews}})
+    console.log(res)
+  }
+})
 
 const Campground =  mongoose.model("Campground",CampgroundSchema);
 
