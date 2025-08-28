@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Index = () => {
   const [camps, setCamps] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [flash, setFlash] = useState("");
 
   const navigate = useNavigate();
 
@@ -14,6 +15,7 @@ const Index = () => {
     const fetchCampgrounds = async () => {
       const campgrounds = await axios.get("http://localhost:5000/campgrounds");
       setCamps(campgrounds.data);
+      setFlash(campgrounds.data.messages);
       setLoading(false);
     };
     fetchCampgrounds();
@@ -21,6 +23,7 @@ const Index = () => {
 
   return (
     <div className="p-4">
+      {flash && <p>{flash}</p>}
       {!loading && (
         <div>
           <h1 className="text-2xl font-semibold">All Campgrounds</h1>

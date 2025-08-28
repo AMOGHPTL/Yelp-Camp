@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
   try {
     const campgrounds = await Campground.find();
+    req.flash('welcome' , 'welcome to campgrounds')
     res.status(200).send(campgrounds);
   } catch (e) {
     next(new ExpressError("Failed to fetch campgrounds", 500));
@@ -18,6 +19,7 @@ router.get("/:id", async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findById(id).populate('reviews');
     if (!campground) throw new ExpressError("Campground not found", 404);
+    req.flash('welcome' , 'welcome to campgrounds')
     res.status(200).send(campground);
   } catch (e) {
     next(e);
@@ -32,6 +34,7 @@ router.put("/:id/edit", async (req, res, next) => {
       runValidators: true,
     });
     if (!updatedCamp) throw new ExpressError("Campground not found", 404);
+    req.flash('success' , 'Succesfully made a new campground');
     res.status(200).send(updatedCamp);
   } catch (e) {
     next(e);

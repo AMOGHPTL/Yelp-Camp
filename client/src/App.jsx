@@ -7,8 +7,10 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 import Footer from "./components/Footer";
 import Test from "./pages/text";
+import axios from "axios";
 
 const App = () => {
+  axios.defaults.withCredentials = true;
   return (
     <div>
       <Navbar />
