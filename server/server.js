@@ -6,8 +6,12 @@ import ExpressError from "./utils/ExpressError.js";
 import Review from "./model/review.js";
 import campgrounds from "./routes/campgrounds.js"
 import reviews from "./routes/reviews.js";
+import user from './routes/user.js'
 import session from "express-session";
-import flash from "connect-flash"
+import flash from "connect-flash";
+import passport from "passport";
+import localStrategy from 'passport-local';
+import User from "./model/user.js";
 
 const app = express();
 
@@ -45,6 +49,14 @@ app.use(session(sessionConfig));
 
 app.use(flash())
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 app.use((req,res,next) => {
   res.locals.flash = req.flash('success');
   next();
@@ -53,6 +65,7 @@ app.use((req,res,next) => {
 // Routes
 app.use('/campgrounds' , campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
+app.use('/', user);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

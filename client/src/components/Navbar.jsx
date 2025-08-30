@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +35,11 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-4">
             {navItems.map((item, index) => (
-              <a key={index} href={item.link} className="px-3 py-2 text-gray-400 hover:text-white">
+              <a
+                key={index}
+                href={item.link}
+                className="px-3 py-2 text-gray-400 hover:text-white"
+              >
                 {item.label}
               </a>
             ))}

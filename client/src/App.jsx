@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Index from "./pages";
+import Index from "./pages/Index";
 import ShowCampground from "./pages/ShowCampground";
 import NewCampground from "./pages/NewCampground";
 import UpdateCampground from "./pages/UpdateCampground";
@@ -8,6 +8,7 @@ import "./App.css";
 import Footer from "./components/Footer";
 import Test from "./pages/text";
 import axios from "axios";
+import Register from "./pages/register";
 
 const App = () => {
   axios.defaults.withCredentials = true;
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/campgrounds/:id" element={<ShowCampground />} />
           <Route path="/campgrounds/new" element={<NewCampground />} />
           <Route path="/campgrounds/:id/edit" element={<UpdateCampground />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<Index />} />
         </Routes>
       </main>
